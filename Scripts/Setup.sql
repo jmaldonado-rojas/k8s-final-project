@@ -1,9 +1,5 @@
--- Creates the database for the app: MyWebApi_DB
-DROP DATABASE IF EXISTS MyWebApi_DB;
-CREATE DATABASE MyWebApi_DB;
-
 -- Creates the main table: Person
-USE MyWebApi_DB;
+USE mywebapi_db;
 CREATE TABLE Person (
  Id INT NOT NULL AUTO_INCREMENT,
  Name VARCHAR(255) NOT NULL,
@@ -13,4 +9,4 @@ CREATE TABLE Person (
 );
 
 -- Inserts a Person for testing
-INSERT INTO mywebapi_db.person(Name,LastName,Role) VALUES ("Jimmy","Maldonado","DevOps"); 
+INSERT INTO mywebapi_db.Person(Name,LastName,Role) VALUES ("Jimmy","Maldonado","DevOps"); 

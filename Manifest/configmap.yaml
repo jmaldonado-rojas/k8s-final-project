@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configs
+data:
+  DB_USER: tester
+  DB_NAME: mywebapi_db
+  DB_SERVER: mysql-svc
+  DB_PORT: "3306"

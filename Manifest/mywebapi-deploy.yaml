@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mywebapi-deploy
+  labels:
+    app: mywebapi
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mywebapi
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata: 
+      name: mywebapi
+      labels:
+        app: mywebapi
+    spec: 
+      containers: 
+        - image: jimmymr/mywebapi:1.0
+          name: mywebapi
+          env:
+
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configs
+                  key: DB_USER
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: DB_PASSWORD
+
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configs
+                  key: DB_NAME
+
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configs
+                  key: DB_PORT
+
+            - name: DB_SERVER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configs
+                  key: DB_SERVER
+
+            - name: ConnectionStrings__MySqlDbConnection
+              value: "server=$(DB_SERVER);port=$(DB_PORT);database=$(DB_NAME);uid=$(DB_USER);password=$(DB_PASSWORD)"
+
+          ports:
+            - containerPort: 80
